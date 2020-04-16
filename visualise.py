@@ -1,5 +1,4 @@
 import pandas as pd
-#from numpy._distributor_init import NUMPY_MKL
 import numpy as np
 from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
@@ -9,7 +8,7 @@ import os
 
 filename = input('Enter the csv file name to read: ')
 sub = pd.read_csv(filename)
-y_pred = np.array(sub.pop('Label'))
+y_pred = np.array(sub.pop('PredictedLabel'))
 y_test = np.array(sub.pop('TrueLabel'))
 path = 'data'
 
