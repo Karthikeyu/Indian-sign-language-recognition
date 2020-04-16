@@ -30,3 +30,12 @@ to preprocess all the images (from raw images to histograms of bovw model) and t
 >   python visualise.py
 
 Dataset can be downloaded from : https://drive.google.com/open?id=1keWr7-X8aR4YMotY2m8SlEHlyruDDdVi
+
+
+### Credits
+
+- Inspired by the [implementation of Rishab Guptha](https://github.com/imRishabhGupta/Indian-Sign-Language-Recognition)
+- Bag of features model post by [kaggle](https://www.kaggle.com/pierre54/bag-of-words-model-with-sift-descriptors)
+- Implementing Bag of Visual words for Object Recognition [post](https://kushalvyas.github.io/BOV.html)
+- Bag of Visual Words(BoVW) by Aybüke Yalçıner [post](https://medium.com/@aybukeyalcinerr/bag-of-visual-words-bovw-db9500331b2f)
+
