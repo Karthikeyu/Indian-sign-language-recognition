@@ -4,15 +4,15 @@ from matplotlib import pyplot as plt
 from sklearn.metrics import confusion_matrix
 import itertools
 import os
+import imagePreprocessingUtils as ipu
 
 
 filename = input('Enter the csv file name to read: ')
 sub = pd.read_csv(filename)
 y_pred = np.array(sub.pop('PredictedLabel'))
 y_test = np.array(sub.pop('TrueLabel'))
-path = 'data'
 
-class_labels = []
+class_labels = ipu.get_labels()
 
 def plot_confusion_matrix(cm, labels,
                           normalize=False,
@@ -55,12 +55,6 @@ def plot_confusion_matrix(cm, labels,
     
     
 
-for (dirpath,dirnames,filenames) in os.walk(path):
-    dirnames.sort()
-    for label in dirnames:
-            #print(label)
-        if not (label == '.DS_Store'):
-            class_labels.append(label)
               
 # Compute confusion matrix
 cnf_matrix = confusion_matrix(y_test, y_pred)
