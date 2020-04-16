@@ -9,13 +9,10 @@ from sklearn.svm import SVC
 import sklearn.metrics as skmetrics
 import random
 import pickle
+import imagePreprocessingUtils as ipu
 
 #import glob
 
-path = 'data'
-train_factor = 80
-total_images = 1200
-n_classes = 35
 train_labels = []
 test_labels = []
 
@@ -28,32 +25,32 @@ def preprocess_all_images():
     train_img_disc = []
     test_img_disc = []
     label_value = 0
-    for (dirpath,dirnames,filenames) in os.walk(path):
+    for (dirpath,dirnames,filenames) in os.walk(ipu.PATH):
         dirnames.sort()
         for label in dirnames:
             #print(label)
             if not (label == '.DS_Store'):
-                for (subdirpath,subdirnames,images) in os.walk(path+'/'+label+'/'):
+                for (subdirpath,subdirnames,images) in os.walk(ipu.PATH+'/'+label+'/'):
                     #print(len(images))
                     count = 0
                     train_features = []
                     test_features = []
                     for image in images: 
                         #print(label)
-                        imagePath = path+'/'+label+'/'+image
+                        imagePath = ipu.PATH+'/'+label+'/'+image
                         #print(imagePath)
                         img = cv2.imread(imagePath)
                         if img is not None:
                             img = get_canny_edge(img)[0]
                             sift_disc = get_SIFT_descriptors(img)
                             print(sift_disc.shape)
-                            if(count < (total_images * train_factor * 0.01)):
+                            if(count < (ipu.TOTAL_IMAGES * ipu.TRAIN_FACTOR * 0.01)):
                                 print('Train:--------- Label is {} and Count is {}'.format(label, count)  )
                                 #train_features.append(sift_disc)
                                 train_img_disc.append(sift_disc)
                                 all_train_dis.extend(sift_disc)
                                 train_labels.append(label_value)
-                            elif((count>=(total_images * train_factor * 0.01)) and count <total_images):
+                            elif((count>=(ipu.TOTAL_IMAGES * ipu.TRAIN_FACTOR  * 0.01)) and count <ipu.TOTAL_IMAGES):
                                 print('Test:--------- Label is {} and Count is {}'.format(label, count)  )
                                 #test_features.append(sift_disc)
                                 test_img_disc.append(sift_disc)
@@ -121,21 +118,9 @@ def mini_kmeans(k, descriptor_list):
     kmeans_model = MiniBatchKMeans(k)
     kmeans_model.fit(descriptor_list)
     print('Mini batch K means trained to get visual words.')
+    filename = 'mini_kmeans_model.sav'
+    pickle.dump(kmeans_model, open(filename, 'wb'))
     return kmeans_model
-
-# Find the index of the closest central point to the each sift descriptor.   
-def find_index(image, center):
-    count = 0
-    index = 0
-    for i in range(len(center)):
-        if(i == 0):
-           count = distance.euclidean(image, center[i]) 
-        else:
-            calculated_distance = distance.euclidean(image, center[i]) 
-            if(calculated_distance < count):
-                index = i
-                count = calculated_distance
-    return index
 
 
 def get_histograms(discriptors_by_class,visual_words, cluster_model):
@@ -205,7 +190,7 @@ del train_disc_by_class, test_disc_by_class
 
 ### STEP:2 MINI K-MEANS 
 
-mini_kmeans_model = mini_kmeans(n_classes * 8, np.array(all_train_dis))
+mini_kmeans_model = mini_kmeans(ipu.N_CLASSES * ipu.CLUSTER_FACTOR, np.array(all_train_dis))
 
 del all_train_dis
 
@@ -224,11 +209,11 @@ print('Visual words for test data collected. length is %i' % len(test_images_vis
 ## Can be calculated using get_histograms function also manually
 
 print('Calculating Histograms for train...')
-bovw_train_histograms = np.array([np.bincount(visual_words, minlength=n_classes*8) for visual_words in train_images_visual_words])
+bovw_train_histograms = np.array([np.bincount(visual_words, minlength=ipu.N_CLASSES * ipu.CLUSTER_FACTOR) for visual_words in train_images_visual_words])
 print('Train histograms are collected. Length : %i ' % len(bovw_train_histograms))
 
 print('Calculating Histograms for test...')
-bovw_test_histograms = np.array([np.bincount(visual_words, minlength=n_classes*8) for visual_words in test_images_visual_words])
+bovw_test_histograms = np.array([np.bincount(visual_words, minlength=ipu.N_CLASSES * ipu.CLUSTER_FACTOR) for visual_words in test_images_visual_words])
 print('Test histograms are collected. Length : %i ' % len(bovw_test_histograms))
 
 print('Each histogram length is : %i' % len(bovw_train_histograms[0]))
@@ -270,7 +255,7 @@ predict_svm(X_train, X_test,Y_train, Y_test)
 
 #STEP:2 K-MEANS clustering to get visual words 
 
-visual_words, cluster_model = kmeans(n_classes * 8, np.array(all_train_dis))
+visual_words, cluster_model = kmeans(ipu.N_CLASSES * 8, np.array(all_train_dis))
 
 print(' Length of Visual words using k-means= %i' % len(visual_words))
 print(type(visual_words))
