@@ -135,5 +135,7 @@ dmypy.json
 #data
 
 data
+data--
+data-
 testdata
 data.zip

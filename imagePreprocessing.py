@@ -13,9 +13,9 @@ import pickle
 #import glob
 
 path = 'data'
-train_factor = 80
-total_images = 100
-n_classes = 2
+train_factor = 70
+total_images = 1200
+n_classes = 35
 train_labels = []
 test_labels = []
 
@@ -186,7 +186,6 @@ def predict_svm(X_train, X_test, y_train, y_test):
     svc.fit(X_train,y_train)
     filename = 'svm_model.sav'
     pickle.dump(svc, open(filename, 'wb'))
-    svc.save('SVM_MODEL')
     y_pred=svc.predict(X_test)
     calc_accuracy("SVM",y_test,y_pred)
     np.savetxt('submission_svm.csv', np.c_[range(1,len(y_test)+1),y_pred,y_test], delimiter=',', header = 'ImageId,Label,TrueLabel', comments = '', fmt='%d')

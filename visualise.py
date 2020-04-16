@@ -15,16 +15,6 @@ path = 'data'
 
 class_labels = []
 
-
-for (dirpath,dirnames,filenames) in os.walk(path):
-    #dirnames.sort()
-    for label in dirnames:
-            #print(label)
-        if not (label == '.DS_Store'):
-            class_labels.append(label)
-              
-
-
 def plot_confusion_matrix(cm, labels,
                           normalize=False,
                           title='Confusion matrix',
@@ -63,6 +53,16 @@ def plot_confusion_matrix(cm, labels,
     plt.ylabel('True label')
     plt.xlabel('Predicted label')
 
+    
+    
+
+for (dirpath,dirnames,filenames) in os.walk(path):
+    dirnames.sort()
+    for label in dirnames:
+            #print(label)
+        if not (label == '.DS_Store'):
+            class_labels.append(label)
+              
 # Compute confusion matrix
 cnf_matrix = confusion_matrix(y_test, y_pred)
 np.set_printoptions(precision=2)
