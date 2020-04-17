@@ -45,10 +45,8 @@ while(True):
             CAPTURE_FLAG = False
         else:
             CAPTURE_FLAG = True
-        #frame = cv2.flip(frame,1)
     
         # Region of Interest
-        #for count in range(0,500):
     if(CAPTURE_FLAG):
         if(count<1200):
             roi = frame[ ipu.START[1]+5:ipu.END[1], ipu.START[0]+5:ipu.END[0]]
