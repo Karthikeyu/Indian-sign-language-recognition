@@ -19,6 +19,11 @@ iii) K-means clustering (Codebook generation: to cluster all features and to get
 iv) Histograms computation (Using visual words (bow) compute histograms for each image) <br/>
 v) SVM model for classification (input: histograms, output: predection for testdata) <br/>
 
+## Results
+As the dataset images are much similar, the model has given with highest accurecy 99% with less error rate. 
+
+A demo can be watched here: https://youtu.be/8wj0D_wCf3g
+
 ## Run files
 
 Run files in order:<br/>
