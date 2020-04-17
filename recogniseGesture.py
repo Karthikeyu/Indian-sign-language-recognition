@@ -14,7 +14,7 @@ class_labels = ipu.get_labels()
 def recognise(cluster_model, classify_model):
     global CAPTURE_FLAG
     gestures = ipu.get_all_gestures()
-    
+    cv2.imwrite("all_gestures.jpg", gestures)
     camera = cv2.VideoCapture(1)
     print('Now camera window will be open, then \n1) Place your hand gesture in ROI (rectangle) \n2) Press esc key to exit.')
     count = 0
