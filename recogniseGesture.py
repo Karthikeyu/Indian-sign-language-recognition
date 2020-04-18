@@ -47,6 +47,14 @@ def recognise(cluster_model, classify_model):
                 bovw_histogram = np.array(np.bincount(visual_words, minlength=ipu.N_CLASSES * ipu.CLUSTER_FACTOR))
                 pred = classify_model.predict([bovw_histogram])
                 label = class_labels[pred[0]]
+                rectangle_bgr = (0, 0, 0)
+                (text_width, text_height) = cv2.getTextSize('Predicted text:      ', 1, fontScale=1.5, thickness=2)[0]
+                # set the text start position
+                text_offset_x = 50
+                text_offset_y = 20
+                # make the coords of the box with a small padding of two pixels
+                box_coords = ((text_offset_x, text_offset_y), (text_offset_x + text_width + 40, text_offset_y + text_height +50))
+                cv2.rectangle(frame, box_coords[0], box_coords[1], rectangle_bgr, cv2.FILLED)
                 frame = cv2.putText(frame, 'Predicted text: ', (50,70), cv2.FONT_HERSHEY_SIMPLEX,1, (255,255,255), 2, cv2.LINE_AA)
                 frame = cv2.putText(frame, label, (300,80), cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 2, cv2.LINE_AA)
        
