@@ -51,3 +51,7 @@ Dataset can be downloaded from : https://drive.google.com/open?id=1keWr7-X8aR4YM
 - Implementing Bag of Visual words for Object Recognition [post](https://kushalvyas.github.io/BOV.html)
 - Bag of Visual Words(BoVW) by Aybüke Yalçıner [post](https://medium.com/@aybukeyalcinerr/bag-of-visual-words-bovw-db9500331b2f)
 
+## Research paper:
+
+https://www.iosrjournals.org/iosr-jce/papers/Vol22-issue3/Series-1/B2203011419.pdf
+
