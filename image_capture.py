@@ -28,7 +28,7 @@ else:
         print('Sub directory already exists!')
     
     
-camera = cv2.VideoCapture(1)
+camera = cv2.VideoCapture(0)
 print('Now camera window will be open, then \n1) Place your hand gesture in ROI and press c key to start capturing images . \n2) Press esc key to exit.')
 
 count = 0
@@ -37,6 +37,11 @@ while(True):
     (t,frame) = camera.read()
     frame = cv2.flip(frame,1)
     cv2.rectangle(frame,ipu.START, ipu.END,(0,255,0),2 )
+    # windows
+    cv2.namedWindow('image',cv2.WINDOW_NORMAL)
+    # please resize the window according to your screen.
+    cv2.resizeWindow('image', 1200,800)
+    ##
     pressedKey = cv2.waitKey(1)
     if pressedKey == 27:
         break
@@ -61,7 +66,8 @@ while(True):
             break
     frame = cv2.putText(frame, str(count), (50,450), cv2.FONT_HERSHEY_SIMPLEX,  
                    2, (0,255,0), 2, cv2.LINE_AA)
-    cv2.imshow("Video",frame)
+    #cv2.imshow("Video",frame)
+    cv2.imshow('image',frame)
         
 camera.release()
 cv2.destroyAllWindows()

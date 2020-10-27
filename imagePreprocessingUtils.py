@@ -5,15 +5,26 @@ import random
 import pickle
 from imutils import paths
 
+#PATH or folder name of dataset
 PATH = 'data'
+# Train and test factor. 80% is used for training. 20% for testing.
 TRAIN_FACTOR = 80
+# please reduce TOTAL_IMAGES value to 800 or less if you are facing memory issues.
 TOTAL_IMAGES = 1200
+# Total number of classes to be classified
 N_CLASSES = 35
+# clustering factor
 CLUSTER_FACTOR = 8
 
-
-START = (450,75)
-END = (800,425)
+# START and END are rectangle coordinates (ROI) which is displayed on camera frame. Please use them accordingly based on your system.
+# mac
+#START = (450,75)
+#END = (800,425)
+##
+# windows
+START = (300,75)
+END = (600,400) 
+##
 IMG_SIZE = 128
 
 
