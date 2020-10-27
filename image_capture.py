@@ -37,7 +37,7 @@ while(True):
     (t,frame) = camera.read()
     frame = cv2.flip(frame,1)
     cv2.rectangle(frame,ipu.START, ipu.END,(0,255,0),2 )
-    # windows
+    # only for windows (remove lines 41 and 43 if you are using mac)
     cv2.namedWindow('image',cv2.WINDOW_NORMAL)
     # please resize the window according to your screen.
     cv2.resizeWindow('image', 1200,800)
