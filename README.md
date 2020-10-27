@@ -9,12 +9,19 @@ All the gestures used in the dataset are in the shown below image with labels.
 
 ![image](all_gestures.jpg)
 
+## Required setup
+* python 2.7 (Does not work with upper versions as openCV does not support SURF features)
+* opencv-python==3.4.2.16
+* opencv-contrib-python==3.4.2.16
+* numpy
+* imutils
+
 ## Implementation
 
 The implementation follows several steps:
 
 i) Image segmentation (masking to get raw skin and edges in the image) <br/>
-ii) SIFT Feature detection (finding feature descriptors for all data) <br/>
+ii) SURF Feature detection (finding feature descriptors for all data) <br/>
 iii) K-means clustering (Codebook generation: to cluster all features and to get visual words (bow)) <br/>
 iv) Histograms computation (Using visual words (bow) compute histograms for each image) <br/>
 v) SVM model for classification (input: histograms, output: predection for testdata) <br/>
